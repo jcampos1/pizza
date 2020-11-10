@@ -4,9 +4,12 @@ import { Container } from 'reactstrap'
 const MainContent = ({
     children
 }) => (
-    <Container className="main-content">
-        {children}
-    </Container>
-)
+        <section className="main-content h-100">
+            <Container className="h-100">
+                {children}
+            </Container>
+        </section>
+
+    )
 
 export default MainContent

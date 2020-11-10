@@ -4,9 +4,10 @@ Table of Contents
 
 00.Variables and Imports
 01.Loading
-02.Buttons
+02.Buttons and links
 03.Aside
 04.Main content
+05.Form
 
 */
 
@@ -39,11 +40,9 @@ Table of Contents
 }
 
 /* 02.Buttons */
-.btn {
-  &.btn-primary {
-    color: black;
-    font-weight: bold;
-  }
+
+a {
+  color: black;
 }
 
 /* 03.Aside */
@@ -51,7 +50,7 @@ Table of Contents
   background-image: url("/assets/img/imagebkg.png");
   background-size: cover;
   background-position: center center;
-  background-color: orange;
+  background-color: yellow;
   width: 40%;
   height: 100%;
   position: fixed;
@@ -62,4 +61,27 @@ Table of Contents
   position: absolute;
   width: 60%;
   left: 40%;
+}
+
+/* 05.Form */
+%input2 {
+  background-position: center right;
+  padding-right:30px;
+  background-size: 30px;
+  height: 60px;
+}
+
+form {
+  input[type="text"] {
+    background: url("/assets/img/ic_usuario.png") no-repeat scroll 7px 7px;
+  }
+  input[type="password"] {
+    background: url("/assets/img/ic_contrasena.png") no-repeat scroll 7px 7px;
+  }
+  input[type="text"], input[type="password"]{
+    background-position: center right;
+    padding-right:30px;
+    background-size: 30px;
+    height: 60px;
+  }
 }
