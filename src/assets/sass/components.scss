@@ -3,10 +3,14 @@
 Table of Contents
 
 00.Variables and Imports
-35.Loading
+01.Loading
+02.Buttons
+03.Aside
+04.Main content
 
 */
 
+/* 01.Loading */
 .loading {
     display: inline-block;
     width: 30px;
@@ -20,16 +24,42 @@ Table of Contents
     top: calc(50% - 15px);
     position: fixed;
     z-index: 1;
-  }
+}
   
-  @keyframes spin {
-    to {
-      -webkit-transform: rotate(360deg);
-    }
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
   }
+}
   
-  @-webkit-keyframes spin {
-    to {
-      -webkit-transform: rotate(360deg);
-    }
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
   }
+}
+
+/* 02.Buttons */
+.btn {
+  &.btn-primary {
+    color: black;
+    font-weight: bold;
+  }
+}
+
+/* 03.Aside */
+.main-aside {
+  background-image: url("/assets/img/imagebkg.png");
+  background-size: cover;
+  background-position: center center;
+  background-color: orange;
+  width: 40%;
+  height: 100%;
+  position: fixed;
+}
+
+/* 04.Main content */
+.main-content {
+  position: absolute;
+  width: 60%;
+  left: 40%;
+}

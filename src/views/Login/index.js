@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import Layout from '../../components/Layout/index';
 
 const Login = () => (
-    <>
-        This is a login
-    </>
+    <Layout>
+        General layout here!
+    </Layout>
 )
 
 export default Login

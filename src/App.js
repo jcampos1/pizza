@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Route
 } from "react-router-dom";
+import './assets/sass/theme.scss';
 import './assets/sass/components.scss';
 
 const Login = React.lazy(() => import('./views/Login'));
