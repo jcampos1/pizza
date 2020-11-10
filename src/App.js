@@ -1,24 +1,25 @@
 import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from 'react'
+import Loading from './components/Loading/index';
+import {
+  BrowserRouter as Router,
+  Route
+} from "react-router-dom";
+import './assets/sass/components.scss';
+
+const Login = React.lazy(() => import('./views/Login'));
+const StoreList = React.lazy(() => import('./views/StoreList'));
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense fallback={<Loading />}>
+      <Router>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/stores" component={StoreList} />
+        <Route exact path="/stores/:storeId" component={StoreList} />
+      </Router>
+    </Suspense>
   );
 }
 
