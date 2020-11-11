@@ -31,7 +31,7 @@ const Aside = () => {
             <img
                 src={Pizza}
                 alt="pizza"
-                className="img-fluid my-auto d-none d-md-block" />
+                className="img-fluid my-auto d-none d-md-block animate__animated animate__rotateIn" />
         </aside>
     )
 }

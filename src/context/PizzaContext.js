@@ -44,9 +44,8 @@ export const PizzaProvider = props => {
         setIsLoading(true);
         const newStores = allStores.filter(st => {
             const lowName = st.name.toLowerCase();
-            const lowDesc = st.description.toLowerCase();
             const lowSearch = name.toLowerCase();
-            if(lowName.includes(lowSearch) || lowDesc.includes(lowSearch))
+            if(lowName.includes(lowSearch))
                 return st;
         });
         setStores(newStores);

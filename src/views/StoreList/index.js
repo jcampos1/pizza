@@ -8,6 +8,7 @@ import SearchBar from "../../components/SearchBar";
 import { STORES_KEY } from '../../constants';
 import { usePizza } from '../../context/PizzaContext';
 import { getImage } from '../../utils/index';
+import { useHistory } from 'react-router-dom';
 
 const ItemPizza = ({
     image,
@@ -15,6 +16,11 @@ const ItemPizza = ({
     name,
     address
 }) => {
+    // const history = useHistory();
+    // const onStoreClick = () => {
+    //     history
+    // }
+
     return (
         <div className="animate__animated animate__rubberBand">
             <div className="d-flex flex-column c-pointer hvr-grow">
