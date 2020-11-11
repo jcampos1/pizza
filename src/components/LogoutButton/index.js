@@ -13,13 +13,13 @@ const LogoutButton = () => {
     return (
         <div
             onClick={onLogoutClick}
-            className="d-inline-flex align-items-center c-pointer">
+            className="d-inline-flex align-items-center c-pointer hvr-grow">
             <img
                 src={ic_contrasena}
                 alt="logout"
                 className="mr-2"
             />
-            <span className="font-weight-bold text-muted">Salir</span>
+            <span className="text-muted">Salir</span>
         </div>
     )
 }

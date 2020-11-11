@@ -8,6 +8,7 @@ import {
 import './assets/sass/theme.scss';
 import './assets/sass/components.scss';
 import './assets/sass/utilities.scss';
+import "hover.css";
 import { PizzaProvider } from './context/PizzaContext';
 
 const Login = React.lazy(() => import('./views/Login'));
