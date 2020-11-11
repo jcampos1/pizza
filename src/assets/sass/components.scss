@@ -9,6 +9,7 @@ Table of Contents
 04.Main content
 05.Form
 06.Store list
+07.Login
 
 */
 
@@ -78,22 +79,27 @@ a {
 }
 
 form {
-  input[type="text"] {
-    background: url("/assets/img/ic_usuario.png") no-repeat scroll 7px 7px;
-  }
-  input[type="password"] {
-    background: url("/assets/img/ic_contrasena.png") no-repeat scroll 7px 7px;
-  }
-  input[type="text"], input[type="password"]{
-    background-position: center right;
-    padding-right:30px;
-    background-size: 30px;
-    height: 60px;
+  &.login {
+    input[type="text"] {
+      background: url("/assets/img/ic_usuario.png") no-repeat scroll 7px 7px;
+    }
+    input[type="password"] {
+      background: url("/assets/img/ic_contrasena.png") no-repeat scroll 7px 7px;
+    }
+    input[type="text"], input[type="password"]{
+      background-position: center right;
+      padding-right:30px;
+      background-size: 30px;
+      height: 60px;
+    }
   }
 }
 
-/* 06.Store list */
-// .store-list {
-  
-// }
+/* 07.Login */
+.content-login {
+  width: 50%;
+  .content-login__logo {
+    width: 250px;
+  }
+}
 

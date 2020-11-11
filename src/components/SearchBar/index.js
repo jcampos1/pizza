@@ -1,33 +1,42 @@
-import React, { useState } from 'react'
-import { usePizza } from '../../context/PizzaContext'
-import { Form, FormGroup, Input, Label } from 'reactstrap';
+import React, { useState } from 'react';
+import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import { usePizza } from '../../context/PizzaContext';
 
 const SearchBar = () => {
     const [search, setSearch] = useState(null);
-    const { fetchByFilter } = usePizza();
+    const { applyFilter } = usePizza();
 
-    const onClickSearch = () => {
-        console.log('search :>> ', search);
-    };
+    const onClickSearch = () => 
+        applyFilter(search)
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            onClickSearch();
+        }
+    }
 
     /**
      * handle search change
      * @param {Object} e event
      */
-    export const onSearchChange = e =>
+    const onSearchChange = e =>
         setSearch(e.target.value)
 
 
     return (
-        <Form>
-            <FormGroup>
-                <Input
-                    type="text"
-                    name="search"
-                    id="search-box"
-                    placeholder="Puede filtrar por nombre o dirección" />
-            </FormGroup>
-        </Form>
+        <InputGroup size="sm">
+            <Input
+                onChange={onSearchChange}
+                placeholder="Nombre o descripción de la tienda ..."
+                onKeyDown={handleKeyDown}
+            />
+            <InputGroupAddon addonType="append">
+                <Button
+                    type="button"
+                    color="primary"
+                    onClick={onClickSearch}>Buscar</Button>
+            </InputGroupAddon>
+        </InputGroup>
     )
 }
 

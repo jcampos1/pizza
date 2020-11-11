@@ -4,14 +4,15 @@ import Aside from '../Aside'
 import MainContent from '../MainContent'
 
 const Layout = ({
-    children
+    children,
+    isLogin = false
 }) => (
-    <div className="">
-        <Aside />
-        <MainContent>
-            {children}
-        </MainContent>
-    </div>
-)
+        <div className="">
+            <Aside />
+            <MainContent isLogin={isLogin}>
+                {children}
+            </MainContent>
+        </div>
+    )
 
 export default Layout

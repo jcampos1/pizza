@@ -1,0 +1,53 @@
+@media (max-width: 992px) {
+    .main-aside {
+        width: 20%;
+        .logo-login {
+          width: 120px;
+          display: flex;
+          left: 0;
+          margin: auto;
+        }
+    }
+    .main-content {
+        width: 80%;
+        left: 20%;
+    }
+    .content-login {
+        width: 70%;
+        .content-login__logo {
+            width: 200px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .main-aside {
+        width: 50px;
+        .logo-login {
+          width: 40px;
+        }
+    }
+    .main-content {
+        width: auto;
+        left: 50px;
+        margin: auto;
+        &.main-content-login {
+            width: 80%;
+        }
+    }
+    .content-login {
+        width: 100%;
+        .content-login__logo {
+            width: 100px;
+        }
+    }
+    form {
+        &.login {
+          input[type="text"], input[type="password"]{
+            padding-right:30px;
+            background-size: 20px;
+            height: 40px;
+          }
+        }
+    }
+}

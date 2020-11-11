@@ -5,11 +5,12 @@ import {
   BrowserRouter as Router,
   Route
 } from "react-router-dom";
+import { PizzaProvider } from './context/PizzaContext';
 import './assets/sass/theme.scss';
 import './assets/sass/components.scss';
+import './assets/sass/object.scss';
 import './assets/sass/utilities.scss';
 import "hover.css";
-import { PizzaProvider } from './context/PizzaContext';
 
 const Login = React.lazy(() => import('./views/Login'));
 const StoreList = React.lazy(() => import('./views/StoreList'));

@@ -8,6 +8,7 @@ const PizzaContext = React.createContext();
 export const PizzaProvider = props => {
     const [users, setUsers] = useState([]);
     const [stores, setStores] = useState([]);
+    const [allStores, setAllStores] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedin, setIsLoggedin] = useState(false);
 
@@ -31,11 +32,27 @@ export const PizzaProvider = props => {
                 const items = res.data.response[queryBy];
                 if (queryBy === USERS_KEY)
                     setUsers(items);
-                else
+                else {
                     setStores(items);
+                    setAllStores(items);
+                }
             }
         }).finally(() => setIsLoading(false))
     }
+
+    const applyFilter = name => {
+        setIsLoading(true);
+        const newStores = allStores.filter(st => {
+            const lowName = st.name.toLowerCase();
+            const lowDesc = st.description.toLowerCase();
+            const lowSearch = name.toLowerCase();
+            if(lowName.includes(lowSearch) || lowDesc.includes(lowSearch))
+                return st;
+        });
+        setStores(newStores);
+        setIsLoading(false);
+    }
+
 
     /**
      * Login user
@@ -46,7 +63,6 @@ export const PizzaProvider = props => {
         setIsLoading(true);
         const promise = new Promise((resolve, reject) => {
             const user = users.find(user => user.email === email && user.password === password);
-            console.log('user :>> ', user);
             if (user) {
                 localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(user));
                 setIsLoggedin(true);
@@ -84,6 +100,7 @@ export const PizzaProvider = props => {
             isLoading,
             isLoggedin,
             fetchData,
+            applyFilter,
             login,
             logout
         }

@@ -34,17 +34,19 @@ const Login = ({ history }) => {
     }
 
     return (
-        <Layout>
+        <Layout isLogin={true}>
             {isLoading || isLoading && <Loading />}
-            <div className="d-flex flex-column justify-content-center align-items-center w-75 h-100 mx-auto">
+            <div className="content-login d-flex flex-column justify-content-center align-items-center h-100 mx-auto">
                 <img
                     src={LogoLogin}
                     alt="best pizza"
-                    className="img-fluid mb-5"
-                    style={{ width: "250px" }}
+                    className="img-fluid content-login__logo"
                 />
-                <h1 className="mb-2">Bienvenido</h1>
-                <div className="text-muted mb-5">A las mejores pizzas del país</div>
+                <div className="my-3 my-md-5">
+                    <h1 className="text-center mb-2">Bienvenido</h1>
+                    <div className="text-muted text-center">A las mejores pizzas del país</div>
+                </div>
+
                 <Formik validationSchema={schema}>
                     {({
                         values,
@@ -52,7 +54,7 @@ const Login = ({ history }) => {
                         touched,
                         isValid
                     }) => (
-                            <Form className="w-100">
+                            <Form className="login w-100">
                                 {
                                     externalError && (
                                         <div className="text-center text-uppercase invalid-feedback d-block mb-4">
@@ -90,7 +92,7 @@ const Login = ({ history }) => {
                                 </FormGroup>
                                 <Link
                                     to="/"
-                                    className="d-block text-center font-weight-bold my-5">
+                                    className="d-block text-center font-weight-bold my-3 my-md-5">
                                     ¿Olvidaste tu contraseña?
                             </Link>
                                 <Button

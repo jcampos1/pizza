@@ -1,5 +1,6 @@
 import "animate.css";
 import React, { useEffect } from 'react';
+import { Col, Row } from "reactstrap";
 import Layout from '../../components/Layout/index';
 import Loading from '../../components/Loading/index';
 import LogoutButton from '../../components/LogoutButton/index';
@@ -17,7 +18,7 @@ const ItemPizza = ({
     return (
         <div className="animate__animated animate__rubberBand">
             <div className="d-flex flex-column c-pointer hvr-grow">
-                <img src={image} alt={alt} className="" />
+                <img src={image} alt={alt} className="img-fluid" />
                 <div className="mt-3">{name}</div>
                 <small className="text-muted">{address}</small>
             </div>
@@ -42,10 +43,18 @@ const StoreList = () => {
         <Layout>
             <div className="store-list">
                 {isLoading || isLoading && <Loading />}
-                <div className="d-flex justify-content-between align-items-center">
-                    {/* <SearchBar /> */}
-                    <LogoutButton />
-                </div>
+                <Row className="mb-5">
+                    <Col
+                        className="d-flex align-items-center order-2 order-md-1"
+                        md="8">
+                        <SearchBar />
+                    </Col>
+                    <Col
+                        className="d-flex align-items-center justify-content-md-end order-1 order-md-2 mb-3"
+                        md="4">
+                        <LogoutButton />
+                    </Col>
+                </Row>
                 {
                     isLoading ? (
                         <Loading />
@@ -63,7 +72,7 @@ const StoreList = () => {
                                             stores.map((item, index) => (
                                                 <div
                                                     key={`store${index}`}
-                                                    className="mr-md-4 mb-4">
+                                                    className="mx-auto ml-md-0 mr-md-4 mb-4">
                                                     <ItemPizza
                                                         {...item} />
                                                 </div>
@@ -77,7 +86,7 @@ const StoreList = () => {
                         )
                 }
             </div>
-        </Layout>
+        </Layout >
     )
 }
 
