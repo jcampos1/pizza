@@ -7,20 +7,24 @@ import {
 } from "react-router-dom";
 import './assets/sass/theme.scss';
 import './assets/sass/components.scss';
+import { PizzaProvider } from './context/PizzaContext';
 
 const Login = React.lazy(() => import('./views/Login'));
 const StoreList = React.lazy(() => import('./views/StoreList'));
 
 
+
 function App() {
   return (
-    <Suspense fallback={<Loading />}>
-      <Router>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/stores" component={StoreList} />
-        <Route exact path="/stores/:storeId" component={StoreList} />
-      </Router>
-    </Suspense>
+    <PizzaProvider>
+      <Suspense fallback={<Loading />}>
+        <Router>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/stores" component={StoreList} />
+          <Route exact path="/stores/:storeId" component={StoreList} />
+        </Router>
+      </Suspense>
+    </PizzaProvider>
   );
 }
 
