@@ -61,6 +61,7 @@ export const PizzaProvider = props => {
         const promise = new Promise((resolve, reject) => {
             if (isLoggedin) {
                 setIsLoggedin(false);
+                localStorage.clear();
                 resolve(true);
             } else
                 reject("El usuario no se encuentra logueado.")

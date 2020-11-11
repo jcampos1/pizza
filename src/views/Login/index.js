@@ -9,9 +9,8 @@ import { usePizza } from '../../context/PizzaContext';
 import schema from './schema';
 
 const Login = ({ history }) => {
-    const [isSending, setIsSending] = useState(false);
     const [externalError, setExternalError] = useState(null);
-    const { users, isLoading, fetchData, login } = usePizza();
+    const { isLoading, fetchData, login } = usePizza();
 
     useEffect(() => {
         fetchData();
@@ -22,7 +21,6 @@ const Login = ({ history }) => {
      * @param {Object} values form data
      */
     const handleSubmit = values => {
-        setIsSending(true);
         setExternalError(null);
         const { email, password } = values;
         login(email, password)
@@ -32,12 +30,11 @@ const Login = ({ history }) => {
                 setExternalError(null);
             })
             .catch(err => setExternalError(err))
-            .finally(() => setIsSending(false));
     }
 
     return (
         <Layout>
-            {isSending && <Loading />}
+            {isLoading || isLoading && <Loading />}
             <div className="d-flex flex-column justify-content-center align-items-center w-75 h-100 mx-auto px-md-5">
                 <img
                     src={LogoLogin}
@@ -100,7 +97,7 @@ const Login = ({ history }) => {
                                     size="lg"
                                     block={true}
                                     className="shadow-sm py-3"
-                                    disabled={!isValid || isSending}
+                                    disabled={!isValid || isLoading}
                                     onClick={() => handleSubmit(values)}
                                 >
                                     Iniciar sesión
