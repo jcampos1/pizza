@@ -1,13 +1,20 @@
 import React from 'react';
+import Loading from '../../components/Loading/index';
+import Layout from '../../components/Layout/index';
+import { usePizza } from '../../context/PizzaContext';
+import LogoutButton from '../../components/LogoutButton/index';
 
-const StoreList = () => (
-    <>
-        This is a store list
-        <div className="container border p-5 m-5 bg-primary text-white font-weight-bold">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-        </div>
-        <button className="btn btn-primary">Iniciar sesión</button>
-    </>
-)
+const StoreList = () => {
+    const { isLoading, fetchData, logout } = usePizza();
+
+    return (
+        <Layout>
+            {isLoading || isLoading && <Loading />}
+            <div className="d-flex justify-content-end">
+                <LogoutButton />
+            </div>
+        </Layout>
+    )
+}
 
 export default StoreList

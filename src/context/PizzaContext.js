@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState, useEffect } from 'react';
 import axios from "axios"
 import { USERS_KEY, USER_LOCALSTORAGE_KEY } from '../constants';
 
@@ -10,6 +10,12 @@ export const PizzaProvider = props => {
     const [stores, setStores] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedin, setIsLoggedin] = useState(false);
+
+    useEffect(() => {
+        const user = localStorage.getItem(USER_LOCALSTORAGE_KEY);
+        if(user)    
+            setIsLoggedin(true);
+    }, []);
 
     /**
      * Fetch data from api
@@ -54,9 +60,9 @@ export const PizzaProvider = props => {
     }
     
     /**
-     * Signup user
+     * Logout user
      */
-    const signup = () => {
+    const logout = () => {
         setIsLoading(true);
         const promise = new Promise((resolve, reject) => {
             if (isLoggedin) {
@@ -76,11 +82,12 @@ export const PizzaProvider = props => {
             users,
             stores,
             isLoading,
+            isLoggedin,
             fetchData,
             login,
-            signup
+            logout
         }
-    }, [users, stores, isLoading]);
+    }, [users, stores, isLoading, isLoggedin]);
 
     return <PizzaContext.Provider value={value} {...props} />
 }

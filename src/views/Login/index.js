@@ -10,9 +10,10 @@ import schema from './schema';
 
 const Login = ({ history }) => {
     const [externalError, setExternalError] = useState(null);
-    const { isLoading, fetchData, login } = usePizza();
+    const { isLoading, fetchData, login, logout } = usePizza();
 
     useEffect(() => {
+        logout();
         fetchData();
     }, []);
 
@@ -35,7 +36,7 @@ const Login = ({ history }) => {
     return (
         <Layout>
             {isLoading || isLoading && <Loading />}
-            <div className="d-flex flex-column justify-content-center align-items-center w-75 h-100 mx-auto px-md-5">
+            <div className="d-flex flex-column justify-content-center align-items-center w-75 h-100 mx-auto">
                 <img
                     src={LogoLogin}
                     alt="best pizza"
@@ -99,6 +100,7 @@ const Login = ({ history }) => {
                                     className="shadow-sm py-3"
                                     disabled={!isValid || isLoading}
                                     onClick={() => handleSubmit(values)}
+                                    type="submit"
                                 >
                                     Iniciar sesión
                             </Button>

@@ -54,6 +54,11 @@ a {
   width: 40%;
   height: 100%;
   position: fixed;
+  .logo-login {
+    position: relative; 
+    left: 10%;
+    width: 120px;
+  }
 }
 
 /* 04.Main content */
