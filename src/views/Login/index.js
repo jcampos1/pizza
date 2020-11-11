@@ -1,17 +1,17 @@
 import { Field, Formik } from 'formik';
-import React, { useState, useEffect } from 'react';
-import { Button, Form, FormGroup, Label } from 'reactstrap';
-import Layout from '../../components/Layout/index';
-import LogoLogin from "../../assets/img/Login-Best-Pizza.png";
-import schema from './schema';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button, Form, FormGroup } from 'reactstrap';
+import LogoLogin from "../../assets/img/Login-Best-Pizza.png";
+import Layout from '../../components/Layout/index';
 import Loading from '../../components/Loading/index';
 import { usePizza } from '../../context/PizzaContext';
-import { API_URL } from '../../api/index';
+import schema from './schema';
 
-const Login = () => {
+const Login = ({ history }) => {
     const [isSending, setIsSending] = useState(false);
-    const { users, isLoading, fetchData } = usePizza();
+    const [externalError, setExternalError] = useState(null);
+    const { users, isLoading, fetchData, login } = usePizza();
 
     useEffect(() => {
         fetchData();
@@ -23,13 +23,16 @@ const Login = () => {
      */
     const handleSubmit = values => {
         setIsSending(true);
-        new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(true)
-            }, 2000);
-        })
-        .catch(err => console.log(err))
-        .finally(() => setIsSending(false));
+        setExternalError(null);
+        const { email, password } = values;
+        login(email, password)
+            .then(response => {
+                console.log('response de logueado:>> ', response);
+                history.push("/stores");
+                setExternalError(null);
+            })
+            .catch(err => setExternalError(err))
+            .finally(() => setIsSending(false));
     }
 
     return (
@@ -52,17 +55,24 @@ const Login = () => {
                         isValid
                     }) => (
                             <Form className="w-100">
+                                {
+                                    externalError && (
+                                        <div className="text-center text-uppercase invalid-feedback d-block mb-4">
+                                            {externalError}
+                                        </div>
+                                    )
+                                }
                                 {/* USER FIELD */}
                                 <FormGroup>
                                     <Field
                                         className="form-control"
-                                        name="user"
+                                        name="email"
                                         type="text"
                                         placeholder="Usuario"
                                     />
-                                    {errors.user && touched.user && (
+                                    {errors.email && touched.email && (
                                         <div className="invalid-feedback d-block">
-                                            {errors.user}
+                                            {errors.email}
                                         </div>
                                     )}
                                 </FormGroup>

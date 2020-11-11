@@ -1,23 +1,72 @@
 import React, { useContext, useMemo, useState } from 'react';
-// import { api } from '../api';
-import { API_URL } from '../api/index';
-import axios from 'axios';
+import axios from "axios"
+import { USERS_KEY, USER_LOCALSTORAGE_KEY } from '../constants';
 
 const PizzaContext = React.createContext();
 
 // Shared state
 export const PizzaProvider = props => {
     const [users, setUsers] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const [stores, setStores] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoggedin, setIsLoggedin] = useState(false);
 
-    const fetchData = () => {
+    /**
+     * Fetch data from api
+     * @param {String} queryBy is entity to query
+     */
+    const fetchData = (queryBy = USERS_KEY) => {
         setIsLoading(true);
-        // console.log('api :>> ', api);
-        fetch(API_URL)
-          .then(res => {
-            console.log('res :>> ', res);
-        }).finally(() => setIsLoading(false));
+        axios({
+            url: 'https://pruebas-muy-candidatos.s3.us-east-2.amazonaws.com/RH.json', //your url
+            method: 'GET'
+        }).then(res => {
+            if (res.status === 200) {
+                const items = res.data.response[queryBy];
+                if (queryBy === USERS_KEY)
+                    setUsers(items);
+                else
+                    setStores(items);
+            }
+        }).finally(() => setIsLoading(false))
+    }
+
+    /**
+     * Login user
+     * @param {String} email 
+     * @param {String} password 
+     */
+    const login = (email, password) => {
+        setIsLoading(true);
+        const promise = new Promise((resolve, reject) => {
+            const user = users.find(user => user.email === email && user.password === password);
+            console.log('user :>> ', user);
+            if (user) {
+                localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(user));
+                setIsLoggedin(true);
+                resolve(user);
+            } else
+                reject("Credenciales inválidas.");
+        });
+        promise.finally(() => setIsLoading(false))
+        return promise;
+
+    }
+    
+    /**
+     * Signup user
+     */
+    const signup = () => {
+        setIsLoading(true);
+        const promise = new Promise((resolve, reject) => {
+            if (isLoggedin) {
+                setIsLoggedin(false);
+                resolve(true);
+            } else
+                reject("El usuario no se encuentra logueado.")
+        });
+        promise.finally(() => setIsLoading(false))
+        return promise;
     }
 
     // optimization to create an object instance
@@ -25,10 +74,12 @@ export const PizzaProvider = props => {
         return {
             users,
             stores,
+            isLoading,
             fetchData,
-            isLoading
+            login,
+            signup
         }
-    }, [users, isLoading]);
+    }, [users, stores, isLoading]);
 
     return <PizzaContext.Provider value={value} {...props} />
 }
