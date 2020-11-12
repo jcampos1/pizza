@@ -41,10 +41,10 @@ Table of Contents
   }
 }
 
-/* 02.Buttons */
+/* 02.Buttons and links*/
 
 a {
-  color: black;
+  color: black !important;
 }
 
 /* 03.Aside */
@@ -81,10 +81,10 @@ a {
 form {
   &.login {
     input[type="text"] {
-      background: url("/assets/img/ic_usuario.png") no-repeat scroll 7px 7px;
+      background: url("/assets/img/ic_usuario.png") no-repeat;
     }
     input[type="password"] {
-      background: url("/assets/img/ic_contrasena.png") no-repeat scroll 7px 7px;
+      background: url("/assets/img/ic_contrasena.png") no-repeat;
     }
     input[type="text"], input[type="password"]{
       background-position: center right;

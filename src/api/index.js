@@ -4,12 +4,12 @@ export const API_URL = '​https://pruebas-muy-candidatos.s3.us-east-2.amazonaws
 /**
  * Fetch to api
  */
-export const getData = () => {
-    const promise  = axios({ url: '​https://pruebas-muy-candidatos.s3.us-east-2.amazonaws.com/RH.json', method: 'GET' });
-    promise.then(res => {
-        console.log('ressss :>> ', res);
-    })
-    return promise;
+export const fetchData = () => {
+    const promise = axios({
+        url: 'https://pruebas-muy-candidatos.s3.us-east-2.amazonaws.com/RH.json', //your url
+        method: 'GET'
+    });
+    return promise
 };
 
 

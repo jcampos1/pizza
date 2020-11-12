@@ -1,6 +1,8 @@
 import React, { useContext, useMemo, useState, useEffect } from 'react';
 import axios from "axios"
 import { USERS_KEY, USER_LOCALSTORAGE_KEY } from '../constants';
+import { getImage } from '../utils/index';
+import { fetchData } from '../api';
 
 const PizzaContext = React.createContext();
 
@@ -14,7 +16,7 @@ export const PizzaProvider = props => {
 
     useEffect(() => {
         const user = localStorage.getItem(USER_LOCALSTORAGE_KEY);
-        if(user)    
+        if (user)
             setIsLoggedin(true);
     }, []);
 
@@ -22,12 +24,10 @@ export const PizzaProvider = props => {
      * Fetch data from api
      * @param {String} queryBy is entity to query
      */
-    const fetchData = (queryBy = USERS_KEY) => {
+    const getData = (queryBy = USERS_KEY) => {
         setIsLoading(true);
-        axios({
-            url: 'https://pruebas-muy-candidatos.s3.us-east-2.amazonaws.com/RH.json', //your url
-            method: 'GET'
-        }).then(res => {
+        const promise = fetchData();
+        promise.then(res => {
             if (res.status === 200) {
                 const items = res.data.response[queryBy];
                 if (queryBy === USERS_KEY)
@@ -37,21 +37,50 @@ export const PizzaProvider = props => {
                     setAllStores(items);
                 }
             }
-        }).finally(() => setIsLoading(false))
+        }).finally(() => setIsLoading(false));
+        return promise;
     }
 
+    /**
+     * Search query
+     * @param {String} name 
+     */
     const applyFilter = name => {
         setIsLoading(true);
         const newStores = allStores.filter(st => {
             const lowName = st.name.toLowerCase();
             const lowSearch = name.toLowerCase();
-            if(lowName.includes(lowSearch))
+            if (lowName.includes(lowSearch))
                 return st;
         });
         setStores(newStores);
         setIsLoading(false);
     }
 
+    /**
+     * Get store by id
+     * @param {Number} storeId store id
+     */
+    const getStoreById = storeId => {
+        const promise = new Promise((resolve, reject) => {
+            const findIndex = allStores.findIndex(st => st.id === storeId);
+            if (findIndex > -1) {
+                const store = allStores[findIndex];
+                const isStoreImage = false;
+                resolve({
+                    ...store,
+                    products: store.products.map((prod, index) => ({
+                        ...prod,
+                        image: getImage(index, store.products.length, isStoreImage)
+                    })),
+                    image: getImage(findIndex, allStores.length)
+                });
+            } else
+                reject("La tienda consultada no se encuentra en el sistema.")
+        });
+
+        return promise;
+    };
 
     /**
      * Login user
@@ -73,7 +102,7 @@ export const PizzaProvider = props => {
         return promise;
 
     }
-    
+
     /**
      * Logout user
      */
@@ -96,14 +125,16 @@ export const PizzaProvider = props => {
         return {
             users,
             stores,
+            allStores,
             isLoading,
             isLoggedin,
-            fetchData,
+            getData,
             applyFilter,
+            getStoreById,
             login,
             logout
         }
-    }, [users, stores, isLoading, isLoggedin]);
+    }, [users, stores, allStores, isLoading, isLoggedin]);
 
     return <PizzaContext.Provider value={value} {...props} />
 }

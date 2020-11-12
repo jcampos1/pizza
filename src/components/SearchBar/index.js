@@ -9,10 +9,9 @@ const SearchBar = () => {
     const onClickSearch = () => 
         applyFilter(search)
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
+    const handleKeyDown = e => {
+        if (e.key === 'Enter')
             onClickSearch();
-        }
     }
 
     /**
@@ -22,12 +21,11 @@ const SearchBar = () => {
     const onSearchChange = e =>
         setSearch(e.target.value)
 
-
     return (
         <InputGroup size="sm">
             <Input
                 onChange={onSearchChange}
-                placeholder="Nombre o descripción de la tienda ..."
+                placeholder="Nombre de la tienda ..."
                 onKeyDown={handleKeyDown}
             />
             <InputGroupAddon addonType="append">

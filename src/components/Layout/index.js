@@ -5,11 +5,14 @@ import MainContent from '../MainContent'
 
 const Layout = ({
     children,
-    isLogin = false
+    isLogin = false,
+    isSearchBar = false
 }) => (
         <div className="">
             <Aside />
-            <MainContent isLogin={isLogin}>
+            <MainContent
+                isLogin={isLogin}
+                isSearchBar={isSearchBar}>
                 {children}
             </MainContent>
         </div>

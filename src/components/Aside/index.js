@@ -7,7 +7,6 @@ import LogoutButton from '../LogoutButton/index';
 
 const Aside = () => {
     const { isLoggedin, logout } = usePizza();
-    console.log('isLoggedin :>> ', isLoggedin);
 
     return (
         <aside className="main-aside d-flex flex-column">
@@ -31,7 +30,7 @@ const Aside = () => {
             <img
                 src={Pizza}
                 alt="pizza"
-                className="img-fluid my-auto d-none d-md-block animate__animated animate__rotateIn" />
+                className="img-fluid my-auto d-none d-md-block animate__animated animate__zoomInDown " />
         </aside>
     )
 }

@@ -10,23 +10,25 @@ import schema from './schema';
 
 const Login = ({ history }) => {
     const [externalError, setExternalError] = useState(null);
-    const { isLoading, fetchData, login, logout } = usePizza();
+    const { isLoading, isLoggedin, getData, login, logout } = usePizza();
 
     useEffect(() => {
-        logout();
-        fetchData();
+        if (isLoggedin)
+            logout();
+        getData();
     }, []);
 
     /**
      * handle submit of login form
+     * @param {Object} e event
      * @param {Object} values form data
      */
-    const handleSubmit = values => {
+    const handleSubmit = (e, values) => {
+        e.preventDefault();
         setExternalError(null);
         const { email, password } = values;
         login(email, password)
             .then(response => {
-                console.log('response de logueado:>> ', response);
                 history.push("/stores");
                 setExternalError(null);
             })
@@ -46,8 +48,10 @@ const Login = ({ history }) => {
                     <h1 className="text-center mb-2">Bienvenido</h1>
                     <div className="text-muted text-center">A las mejores pizzas del país</div>
                 </div>
-
-                <Formik validationSchema={schema}>
+                <Formik
+                    initialValues={{email: "", password: ""}} 
+                    validationSchema={schema}
+                    onSubmit={null}>
                     {({
                         values,
                         errors,
@@ -101,7 +105,7 @@ const Login = ({ history }) => {
                                     block={true}
                                     className="shadow-sm py-3"
                                     disabled={!isValid || isLoading}
-                                    onClick={() => handleSubmit(values)}
+                                    onClick={e => handleSubmit(e, values)}
                                     type="submit"
                                 >
                                     Iniciar sesión
